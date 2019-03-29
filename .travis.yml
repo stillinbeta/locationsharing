@@ -1,25 +1,25 @@
 language: rust
-
 cache: cargo
 rust:
-  - stable
-  - beta
-  - nightly
+- stable
+- beta
+- nightly
 script:
-  - cargo test --verbose
-  - if rustup component add clippy ; then cargo clippy --all-targets -- -D warnings ; else echo "no clippy"; fi
-
+- cargo test --verbose
+- if rustup component add clippy ; then cargo clippy --all-targets -- -D warnings
+  ; else echo "no clippy"; fi
 matrix:
   allow_failures:
-    - rust: nightly
+  - rust: nightly
   fast_finish: true
-
 jobs:
   include:
-    - stage: deploy
-      script: skip
-      rust: stable
-      deploy:
-        provider: cargo
-        on:
-          tags: true
+  - stage: deploy
+    script: skip
+    rust: stable
+    deploy:
+      provider: cargo
+      on:
+        tags: true
+      token:
+        secure: Niz6A0LptTkqrI8OFqguRB2TSzf01zjfzBYA/O81n0e3YIXXMRacluz8G/JK1E2g9hTnUtA+EHPkmT5kKk186OE9Ffe1JavYee97Cp6O9MCOZt5dTs3qewpSVHaBLrQLAA15zYtsKbsz4IBZadoF1zlq1rRyfMiqivue/dtOjY/67PQaubKMA3ZKwxJXhMljkrQ/uZHVcelPRkRMhiFTfKwp/BK4RYRrqQ8f0YaiYDnjpT6l9pYDQMcPb7bCoWAGNOnESu6nhWoHy7+41VGzB8rrHBB23w+Z68RQEytZ0ROGorjfyKD25GSEJmfHiT3MXA5ocl50zvzFWNewT04fpGZLEIvM5fR+QSygw00vvdY8EuL7VzKnU8WSMfMMQ8qMjvuCM7pNy3gp+eQwrUWFtUSVtRgqH3jDUMoRNK6ShEYBr9gEFSXK/rtW8U2bYETXTcIjPIEZoPmL6VQUnBbe0QAh/7D5Fr4nYDAPhdmueYycxoiSuASHRe7sR+UB3Iz5szDCbuDpHxSiutzIqSKGha1fvZQ7q6lyvmAAFLkSt0j/8vKT64CbGgETJhQjR4Kmva8wSm0qp/zKao7or67C4f0AKI3n7REA2nvS4BB+rTS+8AT0g2cwdkUrMLdwzvA+1JG7GtP5pSNElHkQH5mbkvtMwfg7n9Lp2qHR9wF5JDw=
