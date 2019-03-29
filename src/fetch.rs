@@ -35,7 +35,7 @@ pub fn get_locations(cookie: &str) -> Result<Vec<Location>, Error> {
     let arr: Vec<serde_json::Value> = serde_json::from_str(json)?;
     let locations = arr
         .get(0)
-        .and_then(|v| v.as_array())
+        .and_then(serde_json::Value::as_array)
         .ok_or_else(|| Error::Malformed(format!("Missing location array: {:?}", arr)))?;
     let mut vec = Vec::new();
     for elem in locations {
