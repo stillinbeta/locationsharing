@@ -1,3 +1,5 @@
+//! This module contains the data types and the logic for parsing them.
+
 use chrono::{DateTime, TimeZone, Utc};
 use serde_json::Value;
 
@@ -24,8 +26,9 @@ pub struct Location {
 
     pub latitude: f64,
     pub longitude: f64,
-    // pub accuracy: u32,
+    /// The best guess as to the person's address
     pub address: Option<String>,
+    /// When the location was last updated
     pub timestamp: Option<DateTime<Utc>>,
     /// The user's phone's battery, from 0 to 100
     pub battery: Option<u8>,
@@ -94,7 +97,8 @@ impl Location {
     //     except TypeError:
     //         self._battery_level = None
     // except (IndexError, TypeError):
-    pub(crate) fn from_array(val: Value) -> Result<Self, Error> {
+    /// Populates a Location from the proprietary Google representation
+    pub(crate) fn from_array(val: &Value) -> Result<Self, Error> {
         let arr = match val {
             Value::Array(v) => v,
             _ => return Err(Error::Malformed("Value should be array".into())),
@@ -108,7 +112,7 @@ impl Location {
                 nickname: get_vec!(arr, 6, 3).as_str().map(String::from),
             },
             latitude: get_float!(arr, 1, 1, 1),
-            longitude: dbg!(get_float!(arr, 1, 1, 2)),
+            longitude: get_float!(arr, 1, 1, 2),
             timestamp: Some(
                 get_vec!(arr, 1, 2)
                     .as_u64()
@@ -145,8 +149,8 @@ mod tests {
             battery: Some(89),
         };
 
-        let v: Value = serde_json::from_str(dbg!(EXAMPLE_LOCATION)).expect("failed to decode JSON");
-        let location = Location::from_array(v).expect("failed to unserialize array");
+        let v: Value = serde_json::from_str(EXAMPLE_LOCATION).expect("failed to decode JSON");
+        let location = Location::from_array(&v).expect("failed to unserialize array");
         assert_eq!(expected, location);
     }
 }
