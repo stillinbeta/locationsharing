@@ -142,8 +142,8 @@ mod tests {
                 nickname: Some("Twilight".into()),
             },
 
-            latitude: -123.1123589,
-            longitude: 49.2664886,
+            latitude: -123.112_358_9,
+            longitude: 49.266_488_6,
             address: Some("380 W 5th Ave, Vancouver, BC V5Y 1J5, Canada".into()),
             timestamp: Some(Utc.ymd(2019, 3, 28).and_hms(19, 54, 45)),
             battery: Some(89),
