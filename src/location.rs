@@ -111,8 +111,8 @@ impl Location {
                 full_name: get_str!(arr, 6, 2),
                 nickname: get_vec!(arr, 6, 3).as_str().map(String::from),
             },
-            latitude: get_float!(arr, 1, 1, 1),
-            longitude: get_float!(arr, 1, 1, 2),
+            latitude: get_float!(arr, 1, 1, 2),
+            longitude: get_float!(arr, 1, 1, 1),
             timestamp: Some(
                 get_vec!(arr, 1, 2)
                     .as_u64()
@@ -142,8 +142,8 @@ mod tests {
                 nickname: Some("Twilight".into()),
             },
 
-            latitude: -123.112_358_9,
-            longitude: 49.266_488_6,
+            latitude: 49.266_488_6,
+            longitude: -123.112_358_9,
             address: Some("380 W 5th Ave, Vancouver, BC V5Y 1J5, Canada".into()),
             timestamp: Some(Utc.ymd(2019, 3, 28).and_hms(19, 54, 45)),
             battery: Some(89),
